@@ -26,7 +26,7 @@
     </prerequisites>
 
     <properties>
-        <!-- Java SE/EE Framework -->
+        <!-- Java SE/EE -->
         <java.version>1.8</java.version>
         <version.java.ee.api>7.0</version.java.ee.api>
         <version.java.ejb>3.2</version.java.ejb>
@@ -54,6 +54,9 @@
         <version.docker.maven.plugin>0.22.1</version.docker.maven.plugin>
         <!-- Glassfish settings -->
         <glassfish.password.file>config/asadmin-truststore.txt</glassfish.password.file>
+        <!-- Other dependencies -->
+        <version.junit>4.12</version.junit>
+        <version.mockito.all>1.9.5</version.mockito.all>
     </properties>
 
     <modules>
