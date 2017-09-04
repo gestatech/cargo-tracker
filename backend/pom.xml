@@ -32,8 +32,6 @@
                 <version>${version.java.ee.api}</version>
                 <scope>provided</scope>
             </dependency>
-
-
             <!-- Project Dependencies -->
 
 
