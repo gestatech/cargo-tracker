@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.gestatech</groupId>
+    <artifactId>cargo-tracker</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>cargo-tracker-master</name>
+
+    <url>http://www.gestatech.be</url>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+    <prerequisites>
+        <maven>${version.maven}</maven>
+    </prerequisites>
+
+    <properties>
+        <!-- Java SE/EE Framework -->
+        <java.version>1.8</java.version>
+        <version.java.ee.api>7.0</version.java.ee.api>
+        <version.java.ejb>3.2</version.java.ejb>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <currentYearDynamic>${maven.build.timestamp}</currentYearDynamic>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.artifact.artifactHandler.extension>ear</project.artifact.artifactHandler.extension>
+        <!-- Plugins -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <version.maven>3.3.9</version.maven>
+        <version.compiler.plugin>3.6.2</version.compiler.plugin>
+        <version.ear.plugin>2.10.1</version.ear.plugin>
+        <version.ejb.plugin>3.0.0</version.ejb.plugin>
+        <version.war.plugin>3.1.0</version.war.plugin>
+        <version.jar.plugin>3.0.2</version.jar.plugin>
+        <version.dependency.plugin>2.8</version.dependency.plugin>
+        <version.surefire.plugin>2.20</version.surefire.plugin>
+        <version.source.plugin>3.0.1</version.source.plugin>
+        <version.javadoc.plugin>2.10.4</version.javadoc.plugin>
+        <version.asadmin.maven.plugin>0.12</version.asadmin.maven.plugin>
+        <version.docker.maven.plugin>0.22.1</version.docker.maven.plugin>
+        <!-- Glassfish settings -->
+        <glassfish.password.file>config/asadmin-truststore.txt</glassfish.password.file>
+    </properties>
+
+    <modules>
+        <module>frontend</module>
+        <module>backend</module>
+    </modules>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+    </build>
+
+</project>
