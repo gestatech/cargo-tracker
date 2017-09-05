@@ -1,12 +1,15 @@
-package be.gestatech.cargo.tracker.backend.domain.model;
+package be.gestatech.cargo.tracker.backend.domain.model.generic;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 @MappedSuperclass
-public abstract class Identity {
+public abstract class Identity implements Serializable {
+
+    private static final long serialVersionUID = 3451744722128888885L;
 
     @Id
     private final String id;
@@ -20,10 +23,10 @@ public abstract class Identity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        boolean response = (o instanceof Identity);
+    public boolean equals(Object other) {
+        boolean response = (other instanceof Identity);
         if (response) {
-            Identity identity = (Identity) o;
+            Identity identity = (Identity) other;
             response = Objects.nonNull(getId()) ? Objects.equals(getId(), identity.getId()) : Objects.isNull(identity.getId());
         }
         return response;
