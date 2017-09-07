@@ -16,12 +16,6 @@
     <packaging>pom</packaging>
     <name>backend</name>
 
-    <modules>
-        <module>interface</module>
-        <module>application</module>
-        <module>domain</module>
-        <module>infrastructure</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -32,8 +26,36 @@
                 <version>${version.java.ee.api}</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- Project Dependencies -->
 
+            <!-- Project Dependencies -->
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>application</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>domain</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>infrastructure</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>interface</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>pom</type>
+            </dependency>
 
             <!-- External Dependencies -->
             <dependency>
@@ -65,6 +87,7 @@
                         <optimize>true</optimize>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
                         <maxmem>512m</maxmem>
                         <meminitial>128m</meminitial>
                         <showWarnings>true</showWarnings>
@@ -172,6 +195,14 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${version.resources.plugin}</version>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${version.javadoc.plugin}</version>
                     <executions>
@@ -203,5 +234,12 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <modules>
+        <module>interface</module>
+        <module>application</module>
+        <module>domain</module>
+        <module>infrastructure</module>
+    </modules>
 
 </project>
