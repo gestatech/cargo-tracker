@@ -50,6 +50,7 @@
         <version.surefire.plugin>2.20</version.surefire.plugin>
         <version.source.plugin>3.0.1</version.source.plugin>
         <version.javadoc.plugin>2.10.4</version.javadoc.plugin>
+        <version.resources.plugin>3.0.2</version.resources.plugin>
         <version.asadmin.maven.plugin>0.12</version.asadmin.maven.plugin>
         <version.docker.maven.plugin>0.22.1</version.docker.maven.plugin>
         <!-- Glassfish settings -->
