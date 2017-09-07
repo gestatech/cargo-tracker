@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>be.gestatech</groupId>
-    <artifactId>domain-repositories</artifactId>
+    <artifactId>repository</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>domain-repositories</name>
+    <name>repository</name>
 
     <dependencies>
         <dependency>
