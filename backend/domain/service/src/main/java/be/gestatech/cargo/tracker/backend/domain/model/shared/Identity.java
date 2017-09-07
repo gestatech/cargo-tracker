@@ -21,9 +21,9 @@ public abstract class Identity {
 
     @Override
     public boolean equals(Object other) {
-        boolean response = (other instanceof be.gestatech.cargo.tracker.backend.domain.model.generic.Identity);
+        boolean response = (other instanceof be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity);
         if (response) {
-            be.gestatech.cargo.tracker.backend.domain.model.generic.Identity identity = (be.gestatech.cargo.tracker.backend.domain.model.generic.Identity) other;
+            be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity identity = (be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity) other;
             response = Objects.nonNull(getId()) ? Objects.equals(getId(), identity.getId()) : Objects.isNull(identity.getId());
         }
         return response;
