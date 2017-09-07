@@ -13,6 +13,8 @@
     <groupId>be.gestatech</groupId>
     <artifactId>frontend</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>cargo-tracker-frontend</name>
 
     
 </project>
