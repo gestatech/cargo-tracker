@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.specification.generic;
+package be.gestatech.cargo.tracker.backend.infrastructure.specification;
 
 public abstract class AbstractSpecification<T> implements Specification<T> {
 

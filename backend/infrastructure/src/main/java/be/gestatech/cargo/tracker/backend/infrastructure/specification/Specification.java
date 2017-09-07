@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.specification.generic;
+package be.gestatech.cargo.tracker.backend.infrastructure.specification;
 
 public interface Specification<T> {
 
