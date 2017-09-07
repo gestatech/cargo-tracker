@@ -31,9 +31,9 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
     }
 
     public RouteSpecification(Location origin, Location destination, Date arrivalDeadline) {
-        Objects.requireNonNull(origin, "Origin is required");
-        Objects.requireNonNull(destination, "Destination is required");
-        Objects.requireNonNull(arrivalDeadline, "Arrival deadline is required");
+        ObjectsWrapper.requireNonNull(origin, "Origin is required");
+        ObjectsWrapper.requireNonNull(destination, "Destination is required");
+        ObjectsWrapper.requireNonNull(arrivalDeadline, "Arrival deadline is required");
         ObjectsWrapper.isTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: ", origin);
 
         this.origin = origin;

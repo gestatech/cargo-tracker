@@ -43,8 +43,8 @@ public class Cargo extends Identity {
     }
 
     public Cargo(TrackingId trackingId, RouteSpecification routeSpecification) {
-        Objects.requireNonNull(trackingId, "Tracking ID is required");
-        Objects.requireNonNull(routeSpecification, "Route specification is required");
+        ObjectsWrapper.requireNonNull(trackingId, "Tracking ID is required");
+        ObjectsWrapper.requireNonNull(routeSpecification, "Route specification is required");
 
         this.trackingId = trackingId;
         this.origin = routeSpecification.getOrigin();
@@ -80,13 +80,13 @@ public class Cargo extends Identity {
     }
 
     public void specifyNewRoute(RouteSpecification routeSpecification) {
-        Objects.requireNonNull(routeSpecification, "Route specification is required");
+        ObjectsWrapper.requireNonNull(routeSpecification, "Route specification is required");
         this.routeSpecification = routeSpecification;
         this.delivery = delivery.updateOnRouting(this.routeSpecification, this.itinerary);
     }
 
     public void assignToRoute(Itinerary itinerary) {
-        Objects.requireNonNull(itinerary, "Itinerary is required for assignment");
+        ObjectsWrapper.requireNonNull(itinerary, "Itinerary is required for assignment");
         this.itinerary = itinerary;
         this.delivery = delivery.updateOnRouting(this.routeSpecification, this.itinerary);
     }
@@ -99,7 +99,7 @@ public class Cargo extends Identity {
     public boolean equals(Object other) {
         boolean response = (other instanceof Identity);
         if (response) {
-            be.gestatech.cargo.tracker.backend.domain.vo.Cargo cargo = (be.gestatech.cargo.tracker.backend.domain.vo.Cargo) other;
+            Cargo cargo = (Cargo) other;
             response = sameIdentityAs(cargo);
         }
         return response;
