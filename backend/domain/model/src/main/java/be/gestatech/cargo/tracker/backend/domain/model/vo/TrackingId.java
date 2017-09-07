@@ -28,9 +28,9 @@ public class TrackingId implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        boolean response = (other instanceof be.gestatech.cargo.tracker.backend.domain.vo.TrackingId);
+        boolean response = (other instanceof TrackingId);
         if (response) {
-            be.gestatech.cargo.tracker.backend.domain.vo.TrackingId trackingId = (be.gestatech.cargo.tracker.backend.domain.vo.TrackingId) other;
+            TrackingId trackingId = (TrackingId) other;
             response = sameValueAs(trackingId);
         }
         return response;
@@ -49,7 +49,7 @@ public class TrackingId implements Serializable {
         return sb.toString();
     }
 
-    boolean sameValueAs(be.gestatech.cargo.tracker.backend.domain.vo.TrackingId trackingId) {
+    boolean sameValueAs(TrackingId trackingId) {
         return Objects.equals(getId(), trackingId.getId());
     }
 }

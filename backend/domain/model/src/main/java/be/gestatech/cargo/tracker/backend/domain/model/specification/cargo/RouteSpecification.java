@@ -1,9 +1,15 @@
 package be.gestatech.cargo.tracker.backend.domain.model.specification.cargo;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
+import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Itinerary;
+import be.gestatech.cargo.tracker.backend.infrastructure.specification.AbstractSpecification;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectsWrapper;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 @Embeddable
 public class RouteSpecification extends AbstractSpecification<Itinerary> implements Serializable {
@@ -24,18 +30,11 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
     public RouteSpecification() {
     }
 
-    /**
-     * @param origin          origin location - can't be the same as the destination
-     * @param destination     destination location - can't be the same as the origin
-     * @param arrivalDeadline arrival deadline
-     */
-    public RouteSpecification(Location origin, Location destination,
-                              Date arrivalDeadline) {
-        Validate.notNull(origin, "Origin is required");
-        Validate.notNull(destination, "Destination is required");
-        Validate.notNull(arrivalDeadline, "Arrival deadline is required");
-        Validate.isTrue(!origin.sameIdentityAs(destination),
-                "Origin and destination can't be the same: " + origin);
+    public RouteSpecification(Location origin, Location destination, Date arrivalDeadline) {
+        Objects.requireNonNull(origin, "Origin is required");
+        Objects.requireNonNull(destination, "Destination is required");
+        Objects.requireNonNull(arrivalDeadline, "Arrival deadline is required");
+        ObjectsWrapper.isTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: ", origin);
 
         this.origin = origin;
         this.destination = destination;

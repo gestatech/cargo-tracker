@@ -26,6 +26,14 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+        </dependency>
 
         <!-- Project Dependencies -->
         <dependency>
@@ -40,7 +48,7 @@
         </dependency>
         <!--dependency>
             <groupId>be.gestatech</groupId>
-            <artifactId>specification</artifactId>
+            <artifactId>infrastructure</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
             <type>test-jar</type>
