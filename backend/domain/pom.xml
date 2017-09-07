@@ -20,56 +20,56 @@
         <dependencies>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-model</artifactId>
+                <artifactId>model</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-model</artifactId>
+                <artifactId>model</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-repositories</artifactId>
+                <artifactId>repository</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-repositories</artifactId>
+                <artifactId>repository</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-service</artifactId>
+                <artifactId>service</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-service</artifactId>
+                <artifactId>service</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-shared</artifactId>
+                <artifactId>specification</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain-shared</artifactId>
+                <artifactId>specification</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
                 <type>test-jar</type>
@@ -78,10 +78,10 @@
     </dependencyManagement>
 
     <modules>
-        <module>domain-shared</module>
-        <module>domain-service</module>
-        <module>domain-model</module>
-        <module>domain-repositories</module>
+        <module>specification</module>
+        <module>service</module>
+        <module>model</module>
+        <module>repository</module>
     </modules>
 
     <build>
