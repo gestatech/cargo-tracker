@@ -13,6 +13,8 @@ public final class ObjectUtil {
 
     private static final String DEFAULT_IS_FALSE_EX_MESSAGE = "The validated expression is true";
 
+    private static final String DEFAULT_IS_INSTANCE_OF_EX_MESSAGE = "Expected type: %s, actual: %s";
+
     private ObjectUtil() {
         throw new AssertionError("No ObjectUtil instances allowed!");
     }
@@ -21,7 +23,23 @@ public final class ObjectUtil {
     //---------------------------------------------------------------------------------
 
     public static boolean equals(Object firstObject, Object secondObject) {
-        return Objects.equals(firstObject, secondObject) || nonNull(firstObject) && firstObject.equals(secondObject);
+        return Objects.equals(firstObject, secondObject);
+    }
+
+    public static <T> boolean equals(Class<T> actualType, Object actualObject, Object otherObject) {
+        boolean response = false;
+        if (actualType.isInstance(otherObject)) {
+            T thatObject = (T) otherObject;
+            response = deepEquals(actualObject, thatObject);
+        }
+        return response;
+    }
+
+    // deepEquals
+    //---------------------------------------------------------------------------------
+
+    public static boolean deepEquals(Object firstObject, Object secondObject) {
+        return Objects.deepEquals(firstObject, secondObject);
     }
 
     // hashCode

@@ -7,7 +7,7 @@ public final class ArrayUtil {
     private static final String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE = "The validated array contains null element at index: %d";
 
     private ArrayUtil() {
-        throw new AssertionError("No StringUtil instances allowed!");
+        throw new AssertionError("No ArrayUtil instances allowed!");
     }
 
     // Clone
