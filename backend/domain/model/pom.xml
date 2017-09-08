@@ -41,18 +41,6 @@
             <artifactId>infrastructure</artifactId>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>be.gestatech</groupId>
-            <artifactId>specification</artifactId>
-            <type>jar</type>
-        </dependency>
-        <!--dependency>
-            <groupId>be.gestatech</groupId>
-            <artifactId>infrastructure</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-            <type>test-jar</type>
-        </dependency-->
 
         <!-- External Dependencies -->
         <dependency>

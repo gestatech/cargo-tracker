@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.domain.model.specification.cargo;
+package be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.specification;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Itinerary;

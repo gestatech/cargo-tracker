@@ -5,7 +5,7 @@ import be.gestatech.cargo.tracker.backend.domain.model.entity.handling.HandlingE
 import be.gestatech.cargo.tracker.backend.domain.model.vo.handling.HandlingHistory;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.voyage.Voyage;
-import be.gestatech.cargo.tracker.backend.domain.model.specification.cargo.RouteSpecification;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.specification.RouteSpecification;
 import be.gestatech.cargo.tracker.backend.infrastructure.TransportStatus;
 import be.gestatech.cargo.tracker.backend.infrastructure.constant.RoutingStatus;
 import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;

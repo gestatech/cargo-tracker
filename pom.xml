@@ -40,6 +40,7 @@
         <java.version>1.8</java.version>
         <version.java.ee.api>7.0</version.java.ee.api>
         <version.eclipselink>2.6.1</version.eclipselink>
+        <version.javax.persistence>2.2.0</version.javax.persistence>
         <version.java.ejb>3.2</version.java.ejb>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <project.encoding>UTF-8</project.encoding>

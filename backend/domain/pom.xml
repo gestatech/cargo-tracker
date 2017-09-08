@@ -34,20 +34,6 @@
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>repository</artifactId>
-                <version>${project.version}</version>
-                <scope>compile</scope>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>be.gestatech</groupId>
-                <artifactId>repository</artifactId>
-                <version>${project.version}</version>
-                <scope>compile</scope>
-                <type>test-jar</type>
-            </dependency>
-            <dependency>
-                <groupId>be.gestatech</groupId>
                 <artifactId>service</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
@@ -66,7 +52,6 @@
     <modules>
         <module>service</module>
         <module>model</module>
-        <module>repository</module>
     </modules>
 
     <build>

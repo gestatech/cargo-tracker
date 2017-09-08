@@ -1,4 +1,6 @@
-package be.gestatech.cargo.tracker.backend.domain.model.shared;
+package be.gestatech.cargo.tracker.backend.domain.model.repository.generic;
+
+import be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity;
 
 import java.util.Arrays;
 import java.util.Collection;
