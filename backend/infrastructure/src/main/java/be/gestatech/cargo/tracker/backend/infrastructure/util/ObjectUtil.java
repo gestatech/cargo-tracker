@@ -3,7 +3,7 @@ package be.gestatech.cargo.tracker.backend.infrastructure.util;
 import java.util.Arrays;
 import java.util.Objects;
 
-public final class ObjectsWrapper {
+public final class ObjectUtil {
 
     private static final String DEFAULT_IS_NULL_EX_MESSAGE = "The validated object is null";
 
@@ -13,8 +13,8 @@ public final class ObjectsWrapper {
 
     private static final String DEFAULT_IS_FALSE_EX_MESSAGE = "The validated expression is true";
 
-    private ObjectsWrapper() {
-        throw new AssertionError("No ObjectsWrapper instances allowed!");
+    private ObjectUtil() {
+        throw new AssertionError("No ObjectUtil instances allowed!");
     }
 
     // equals

@@ -1,7 +1,7 @@
 package be.gestatech.cargo.tracker.backend.domain.model.vo.cargo;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
-import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectsWrapper;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,16 +26,16 @@ public class HandlingActivity implements Serializable {
     }
 
     public HandlingActivity(HandlingEvent.Type type, Location location) {
-        ObjectsWrapper.requireNonNull(type, "Handling event type is required");
-        ObjectsWrapper.requireNonNull(location, "Location is required");
+        ObjectUtil.requireNonNull(type, "Handling event type is required");
+        ObjectUtil.requireNonNull(location, "Location is required");
         this.type = type;
         this.location = location;
     }
 
     public HandlingActivity(HandlingEvent.Type type, Location location, Voyage voyage) {
-        ObjectsWrapper.requireNonNull(type, "Handling event type is required");
-        ObjectsWrapper.requireNonNull(location, "Location is required");
-        ObjectsWrapper.requireNonNull(voyage, "Voyage is required");
+        ObjectUtil.requireNonNull(type, "Handling event type is required");
+        ObjectUtil.requireNonNull(location, "Location is required");
+        ObjectUtil.requireNonNull(voyage, "Voyage is required");
         this.type = type;
         this.location = location;
         this.voyage = voyage;
@@ -75,7 +75,7 @@ public class HandlingActivity implements Serializable {
 
     @Override
     public int hashCode() {
-        return ObjectsWrapper.hash(getType(), getLocation(), getVoyage());
+        return ObjectUtil.hash(getType(), getLocation(), getVoyage());
     }
 
     @Override
@@ -89,6 +89,6 @@ public class HandlingActivity implements Serializable {
     }
 
     private boolean sameValueAs(HandlingActivity other) {
-        return ObjectsWrapper.nonNull(other) && Objects.equals(this, other);
+        return ObjectUtil.nonNull(other) && Objects.equals(this, other);
     }
 }

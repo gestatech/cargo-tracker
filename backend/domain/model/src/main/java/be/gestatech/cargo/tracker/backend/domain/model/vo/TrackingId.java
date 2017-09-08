@@ -1,6 +1,6 @@
 package be.gestatech.cargo.tracker.backend.domain.model.vo;
 
-import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectsWrapper;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -20,7 +20,7 @@ public class TrackingId implements Serializable {
     }
 
     public TrackingId(String id) {
-        ObjectsWrapper.requireNonNull(id, "TrackingId.[id] should not be null");
+        ObjectUtil.requireNonNull(id, "TrackingId.[id] should not be null");
         this.id = id;
     }
 

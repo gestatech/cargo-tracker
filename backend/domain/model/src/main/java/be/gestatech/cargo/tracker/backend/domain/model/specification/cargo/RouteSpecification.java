@@ -3,13 +3,12 @@ package be.gestatech.cargo.tracker.backend.domain.model.specification.cargo;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Itinerary;
 import be.gestatech.cargo.tracker.backend.infrastructure.specification.AbstractSpecification;
-import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectsWrapper;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 @Embeddable
 public class RouteSpecification extends AbstractSpecification<Itinerary> implements Serializable {
@@ -31,10 +30,10 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
     }
 
     public RouteSpecification(Location origin, Location destination, Date arrivalDeadline) {
-        ObjectsWrapper.requireNonNull(origin, "Origin is required");
-        ObjectsWrapper.requireNonNull(destination, "Destination is required");
-        ObjectsWrapper.requireNonNull(arrivalDeadline, "Arrival deadline is required");
-        ObjectsWrapper.isTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: ", origin);
+        ObjectUtil.requireNonNull(origin, "Origin is required");
+        ObjectUtil.requireNonNull(destination, "Destination is required");
+        ObjectUtil.requireNonNull(arrivalDeadline, "Arrival deadline is required");
+        ObjectUtil.isTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: ", origin);
 
         this.origin = origin;
         this.destination = destination;

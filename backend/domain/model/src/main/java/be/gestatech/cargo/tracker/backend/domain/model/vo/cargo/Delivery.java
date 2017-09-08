@@ -3,7 +3,7 @@ package be.gestatech.cargo.tracker.backend.domain.model.vo.cargo;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.Leg;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.specification.cargo.RouteSpecification;
-import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectsWrapper;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -79,13 +79,13 @@ public class Delivery implements Serializable {
     }
 
     Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
-        ObjectsWrapper.requireNonNull(routeSpecification, "Route specification is required");
+        ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
         return new Delivery(this.lastEvent, itinerary, routeSpecification);
     }
 
     static Delivery derivedFrom(RouteSpecification routeSpecification, Itinerary itinerary, HandlingHistory handlingHistory) {
-        ObjectsWrapper.requireNonNull(routeSpecification, "Route specification is required");
-        ObjectsWrapper.requireNonNull(handlingHistory, "Delivery history is required");
+        ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
+        ObjectUtil.requireNonNull(handlingHistory, "Delivery history is required");
         HandlingEvent lastEvent = handlingHistory.getMostRecentlyCompletedEvent();
         return new Delivery(lastEvent, itinerary, routeSpecification);
     }
@@ -99,7 +99,7 @@ public class Delivery implements Serializable {
     }
 
     public Location getLastKnownLocation() {
-        return ObjectsWrapper.nullSafe(lastKnownLocation, Location.UNKNOWN);
+        return ObjectUtil.nullSafe(lastKnownLocation, Location.UNKNOWN);
     }
 
     public void setLastKnownLocation(Location lastKnownLocation) {
@@ -111,7 +111,7 @@ public class Delivery implements Serializable {
     }
 
     public Voyage getCurrentVoyage() {
-        return ObjectsWrapper.nullSafe(currentVoyage, Voyage.NONE);
+        return ObjectUtil.nullSafe(currentVoyage, Voyage.NONE);
     }
 
     public boolean isMisdirected() {
@@ -159,7 +159,7 @@ public class Delivery implements Serializable {
     }
 
     private TransportStatus calculateTransportStatus() {
-        if (ObjectsWrapper.isNull(lastEvent)) {
+        if (ObjectUtil.isNull(lastEvent)) {
             return NOT_RECEIVED;
         }
         switch (lastEvent.getType()) {
@@ -177,7 +177,7 @@ public class Delivery implements Serializable {
     }
 
     private Location calculateLastKnownLocation() {
-        if (ObjectsWrapper.nonNull(lastEvent)) {
+        if (ObjectUtil.nonNull(lastEvent)) {
             return lastEvent.getLocation();
         } else {
             return null;
@@ -185,7 +185,7 @@ public class Delivery implements Serializable {
     }
 
     private Voyage calculateCurrentVoyage() {
-        if (getTransportStatus().equals(ONBOARD_CARRIER) && ObjectsWrapper.nonNull(lastEvent)) {
+        if (getTransportStatus().equals(ONBOARD_CARRIER) && ObjectUtil.nonNull(lastEvent)) {
             return lastEvent.getVoyage();
         } else {
             return null;
@@ -193,7 +193,7 @@ public class Delivery implements Serializable {
     }
 
     private boolean calculateMisdirectionStatus(Itinerary itinerary) {
-        if (ObjectsWrapper.nonNull(lastEvent)) {
+        if (ObjectUtil.nonNull(lastEvent)) {
             return false;
         } else {
             return !itinerary.isExpected(lastEvent);
@@ -212,7 +212,7 @@ public class Delivery implements Serializable {
         if (!onTrack()) {
             return NO_ACTIVITY;
         }
-        if (ObjectsWrapper.isNull(lastEvent)) {
+        if (ObjectUtil.isNull(lastEvent)) {
             return new HandlingActivity(HandlingEvent.Type.RECEIVE, routeSpecification.getOrigin());
         }
         switch (lastEvent.getType()) {

@@ -6,10 +6,9 @@ import be.gestatech.cargo.tracker.backend.domain.model.specification.cargo.Route
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Delivery;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Itinerary;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.TrackingId;
-import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectsWrapper;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -43,8 +42,8 @@ public class Cargo extends Identity {
     }
 
     public Cargo(TrackingId trackingId, RouteSpecification routeSpecification) {
-        ObjectsWrapper.requireNonNull(trackingId, "Tracking ID is required");
-        ObjectsWrapper.requireNonNull(routeSpecification, "Route specification is required");
+        ObjectUtil.requireNonNull(trackingId, "Tracking ID is required");
+        ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
 
         this.trackingId = trackingId;
         this.origin = routeSpecification.getOrigin();
@@ -76,17 +75,17 @@ public class Cargo extends Identity {
     }
 
     public Itinerary getItinerary() {
-        return ObjectsWrapper.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
+        return ObjectUtil.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
     }
 
     public void specifyNewRoute(RouteSpecification routeSpecification) {
-        ObjectsWrapper.requireNonNull(routeSpecification, "Route specification is required");
+        ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
         this.routeSpecification = routeSpecification;
         this.delivery = delivery.updateOnRouting(this.routeSpecification, this.itinerary);
     }
 
     public void assignToRoute(Itinerary itinerary) {
-        ObjectsWrapper.requireNonNull(itinerary, "Itinerary is required for assignment");
+        ObjectUtil.requireNonNull(itinerary, "Itinerary is required for assignment");
         this.itinerary = itinerary;
         this.delivery = delivery.updateOnRouting(this.routeSpecification, this.itinerary);
     }

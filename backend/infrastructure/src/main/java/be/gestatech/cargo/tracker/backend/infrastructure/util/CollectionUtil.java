@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 
-public final class CollectionsWrapper {
+public final class CollectionUtil {
 
     private static final String DEFAULT_NOT_EMPTY_ARRAY_EX_MESSAGE = "The validated array is empty";
 
@@ -12,8 +12,8 @@ public final class CollectionsWrapper {
 
     private static final String DEFAULT_NOT_EMPTY_MAP_EX_MESSAGE = "The validated map is empty";
 
-    private CollectionsWrapper() {
-        throw new AssertionError("No CollectionsWrapper instances allowed!");
+    private CollectionUtil() {
+        throw new AssertionError("No CollectionUtil instances allowed!");
     }
 
     // notEmpty array
