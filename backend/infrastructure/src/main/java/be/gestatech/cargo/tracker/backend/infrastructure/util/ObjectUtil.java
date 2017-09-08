@@ -20,22 +20,22 @@ public final class ObjectUtil {
     // equals
     //---------------------------------------------------------------------------------
 
-    public static boolean equals(Object var0, Object var1) {
-        return Objects.equals(var0, var1) || nonNull(var0) && var0.equals(var1);
+    public static boolean equals(Object firstObject, Object secondObject) {
+        return Objects.equals(firstObject, secondObject) || nonNull(firstObject) && firstObject.equals(secondObject);
     }
 
     // hashCode
     //---------------------------------------------------------------------------------
 
-    public static int hashCode(Object var0) {
-        return nonNull(var0) ? var0.hashCode() : 0;
+    public static int hashCode(Object object) {
+        return nonNull(object) ? object.hashCode() : 0;
     }
 
     // hash
     //---------------------------------------------------------------------------------
 
-    public static int hash(Object... var0) {
-        return Arrays.hashCode(var0);
+    public static int hash(Object... object) {
+        return Arrays.hashCode(object);
     }
 
     // nonNull
