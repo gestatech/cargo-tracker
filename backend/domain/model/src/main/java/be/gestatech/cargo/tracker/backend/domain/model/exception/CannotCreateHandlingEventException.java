@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.domain.model.entity.handling.exception;
+package be.gestatech.cargo.tracker.backend.domain.model.exception;
 
 import javax.ejb.ApplicationException;
 

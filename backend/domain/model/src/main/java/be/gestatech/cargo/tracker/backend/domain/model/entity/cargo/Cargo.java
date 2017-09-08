@@ -3,7 +3,7 @@ package be.gestatech.cargo.tracker.backend.domain.model.entity.cargo;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.handling.HandlingHistory;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity;
-import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.specification.RouteSpecification;
+import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.RouteSpecification;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Delivery;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Itinerary;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.TrackingId;
