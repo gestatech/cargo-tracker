@@ -1,11 +1,12 @@
 package be.gestatech.cargo.tracker.backend.domain.model.entity.cargo;
 
+import be.gestatech.cargo.tracker.backend.domain.model.vo.handling.HandlingHistory;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity;
 import be.gestatech.cargo.tracker.backend.domain.model.specification.cargo.RouteSpecification;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Delivery;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.Itinerary;
-import be.gestatech.cargo.tracker.backend.domain.model.vo.TrackingId;
+import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.TrackingId;
 import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
@@ -44,11 +45,9 @@ public class Cargo extends Identity {
     public Cargo(TrackingId trackingId, RouteSpecification routeSpecification) {
         ObjectUtil.requireNonNull(trackingId, "Tracking ID is required");
         ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
-
         this.trackingId = trackingId;
         this.origin = routeSpecification.getOrigin();
         this.routeSpecification = routeSpecification;
-
         this.delivery = Delivery.derivedFrom(this.routeSpecification, this.itinerary, HandlingHistory.EMPTY);
         this.itinerary = Itinerary.EMPTY_ITINERARY;
     }

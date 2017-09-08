@@ -1,6 +1,8 @@
 package be.gestatech.cargo.tracker.backend.domain.model.vo.cargo;
 
+import be.gestatech.cargo.tracker.backend.domain.model.entity.handling.HandlingEvent;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.voyage.Voyage;
 import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
@@ -65,17 +67,12 @@ public class HandlingActivity implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        boolean response = false;
-        if (other instanceof HandlingActivity) {
-            HandlingActivity handlingActivity = (HandlingActivity) other;
-            response = sameValueAs(handlingActivity);
-        }
-        return response;
+        return ObjectUtil.equals(HandlingActivity.class, this, other);
     }
 
     @Override
     public int hashCode() {
-        return ObjectUtil.hash(getType(), getLocation(), getVoyage());
+        return ObjectUtil.hash(this);
     }
 
     @Override
@@ -89,6 +86,6 @@ public class HandlingActivity implements Serializable {
     }
 
     private boolean sameValueAs(HandlingActivity other) {
-        return ObjectUtil.nonNull(other) && Objects.equals(this, other);
+        return Objects.equals(this, other);
     }
 }

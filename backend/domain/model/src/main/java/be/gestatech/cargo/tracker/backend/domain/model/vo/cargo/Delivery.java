@@ -1,8 +1,13 @@
 package be.gestatech.cargo.tracker.backend.domain.model.vo.cargo;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.Leg;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.handling.HandlingEvent;
+import be.gestatech.cargo.tracker.backend.domain.model.vo.handling.HandlingHistory;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.voyage.Voyage;
 import be.gestatech.cargo.tracker.backend.domain.model.specification.cargo.RouteSpecification;
+import be.gestatech.cargo.tracker.backend.infrastructure.TransportStatus;
+import be.gestatech.cargo.tracker.backend.infrastructure.constant.RoutingStatus;
 import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
@@ -10,6 +15,10 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Objects;
+
+import static be.gestatech.cargo.tracker.backend.infrastructure.TransportStatus.*;
+import static be.gestatech.cargo.tracker.backend.infrastructure.constant.RoutingStatus.*;
 
 @Embeddable
 public class Delivery implements Serializable {
@@ -78,12 +87,12 @@ public class Delivery implements Serializable {
         this.isUnloadedAtDestination = calculateUnloadedAtDestination(routeSpecification);
     }
 
-    Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
+    public Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
         ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
         return new Delivery(this.lastEvent, itinerary, routeSpecification);
     }
 
-    static Delivery derivedFrom(RouteSpecification routeSpecification, Itinerary itinerary, HandlingHistory handlingHistory) {
+    public static Delivery derivedFrom(RouteSpecification routeSpecification, Itinerary itinerary, HandlingHistory handlingHistory) {
         ObjectUtil.requireNonNull(routeSpecification, "Route specification is required");
         ObjectUtil.requireNonNull(handlingHistory, "Delivery history is required");
         HandlingEvent lastEvent = handlingHistory.getMostRecentlyCompletedEvent();
@@ -123,11 +132,11 @@ public class Delivery implements Serializable {
     }
 
     public Date getEstimatedTimeOfArrival() {
+        Date response = ETA_UNKOWN;
         if (eta != ETA_UNKOWN) {
-            return new Date(eta.getTime());
-        } else {
-            return ETA_UNKOWN;
+            response = new Date(eta.getTime());
         }
+        return response;
     }
 
     public HandlingActivity getNextExpectedActivity() {
@@ -177,35 +186,35 @@ public class Delivery implements Serializable {
     }
 
     private Location calculateLastKnownLocation() {
+        Location response = null;
         if (ObjectUtil.nonNull(lastEvent)) {
-            return lastEvent.getLocation();
-        } else {
-            return null;
+            response = lastEvent.getLocation();
         }
+        return response;
     }
 
     private Voyage calculateCurrentVoyage() {
+        Voyage response = null;
         if (getTransportStatus().equals(ONBOARD_CARRIER) && ObjectUtil.nonNull(lastEvent)) {
-            return lastEvent.getVoyage();
-        } else {
-            return null;
+            response = lastEvent.getVoyage();
         }
+        return response;
     }
 
     private boolean calculateMisdirectionStatus(Itinerary itinerary) {
-        if (ObjectUtil.nonNull(lastEvent)) {
-            return false;
-        } else {
-            return !itinerary.isExpected(lastEvent);
+        boolean response = false;
+        if (ObjectUtil.isNull(lastEvent)) {
+            response = !itinerary.isExpected(lastEvent);
         }
+        return response;
     }
 
     private Date calculateEta(Itinerary itinerary) {
+        Date response = ETA_UNKOWN;
         if (onTrack()) {
-            return itinerary.getFinalArrivalDate();
-        } else {
-            return ETA_UNKOWN;
+            response = itinerary.getFinalArrivalDate();
         }
+        return response;
     }
 
     private HandlingActivity calculateNextExpectedActivity(RouteSpecification routeSpecification, Itinerary itinerary) {
@@ -246,57 +255,47 @@ public class Delivery implements Serializable {
     }
 
     private RoutingStatus calculateRoutingStatus(Itinerary itinerary, RouteSpecification routeSpecification) {
-        if (itinerary == null || itinerary == Itinerary.EMPTY_ITINERARY) {
-            return NOT_ROUTED;
-        } else {
-            if (routeSpecification.isSatisfiedBy(itinerary)) {
-                return ROUTED;
-            } else {
-                return MISROUTED;
-            }
+        RoutingStatus response = MISROUTED;
+        if (ObjectUtil.isNull(itinerary) || ObjectUtil.equals(itinerary, Itinerary.EMPTY_ITINERARY)) {
+            response = NOT_ROUTED;
+        } else if (routeSpecification.isSatisfiedBy(itinerary)) {
+            response = ROUTED;
         }
+        return response;
     }
 
     private boolean calculateUnloadedAtDestination(RouteSpecification routeSpecification) {
-        return lastEvent != null && HandlingEvent.Type.UNLOAD.sameValueAs(lastEvent.getType()) && routeSpecification.getDestination().sameIdentityAs(lastEvent.getLocation());
+        return ObjectUtil.nonNull(lastEvent) && HandlingEvent.Type.UNLOAD.sameValueAs(lastEvent.getType()) && routeSpecification.getDestination().sameIdentityAs(lastEvent.getLocation());
     }
 
     private boolean onTrack() {
         return routingStatus.equals(ROUTED) && !misdirected;
     }
 
-    private boolean sameValueAs(Delivery other) {
-        return other != null && new EqualsBuilder()
-                .append(this.transportStatus, other.transportStatus)
-                .append(this.lastKnownLocation, other.lastKnownLocation)
-                .append(this.currentVoyage, other.currentVoyage)
-                .append(this.misdirected, other.misdirected)
-                .append(this.eta, other.eta)
-                .append(this.nextExpectedActivity, other.nextExpectedActivity)
-                .append(this.isUnloadedAtDestination, other.isUnloadedAtDestination)
-                .append(this.routingStatus, other.routingStatus)
-                .append(this.calculatedAt, other.calculatedAt)
-                .append(this.lastEvent, other.lastEvent).isEquals();
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Delivery other = (Delivery) o;
-        return sameValueAs(other);
+    public boolean equals(Object other) {
+        return ObjectUtil.equals(Delivery.class, this, other);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(transportStatus)
-                .append(lastKnownLocation).append(currentVoyage)
-                .append(misdirected).append(eta).append(nextExpectedActivity)
-                .append(isUnloadedAtDestination).append(routingStatus)
-                .append(calculatedAt).append(lastEvent).toHashCode();
+        return Objects.hash(this);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Delivery{");
+        sb.append("transportStatus=").append(transportStatus);
+        sb.append(", lastKnownLocation=").append(lastKnownLocation);
+        sb.append(", currentVoyage=").append(currentVoyage);
+        sb.append(", misdirected=").append(misdirected);
+        sb.append(", eta=").append(eta);
+        sb.append(", nextExpectedActivity=").append(nextExpectedActivity);
+        sb.append(", isUnloadedAtDestination=").append(isUnloadedAtDestination);
+        sb.append(", routingStatus=").append(routingStatus);
+        sb.append(", calculatedAt=").append(calculatedAt);
+        sb.append(", lastEvent=").append(lastEvent);
+        sb.append('}');
+        return sb.toString();
     }
 }

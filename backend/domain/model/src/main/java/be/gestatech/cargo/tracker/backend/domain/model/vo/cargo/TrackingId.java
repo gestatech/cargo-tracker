@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.domain.model.vo;
+package be.gestatech.cargo.tracker.backend.domain.model.vo.cargo;
 
 import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
@@ -30,17 +30,12 @@ public class TrackingId implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        boolean response = (other instanceof TrackingId);
-        if (response) {
-            TrackingId trackingId = (TrackingId) other;
-            response = sameValueAs(trackingId);
-        }
-        return response;
+        return ObjectUtil.equals(TrackingId.class, this, other);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return ObjectUtil.hash(this);
     }
 
     @Override
@@ -52,6 +47,6 @@ public class TrackingId implements Serializable {
     }
 
     public boolean sameValueAs(TrackingId trackingId) {
-        return Objects.equals(getId(), trackingId.getId());
+        return ObjectUtil.deepEquals(getId(), trackingId.getId());
     }
 }

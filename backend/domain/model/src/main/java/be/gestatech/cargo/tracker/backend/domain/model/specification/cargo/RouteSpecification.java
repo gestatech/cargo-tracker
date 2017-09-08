@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Embeddable
 public class RouteSpecification extends AbstractSpecification<Itinerary> implements Serializable {
@@ -33,8 +34,7 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
         ObjectUtil.requireNonNull(origin, "Origin is required");
         ObjectUtil.requireNonNull(destination, "Destination is required");
         ObjectUtil.requireNonNull(arrivalDeadline, "Arrival deadline is required");
-        ObjectUtil.isTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: ", origin);
-
+        ObjectUtil.requireTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: ", origin);
         this.origin = origin;
         this.destination = destination;
         this.arrivalDeadline = (Date) arrivalDeadline.clone();
@@ -62,32 +62,23 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
                 && getArrivalDeadline().after(itinerary.getFinalArrivalDate());
     }
 
-    private boolean sameValueAs(RouteSpecification other) {
-        return other != null
-                && new EqualsBuilder().append(this.origin, other.origin)
-                .append(this.destination, other.destination)
-                .append(this.arrivalDeadline, other.arrivalDeadline)
-                .isEquals();
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        RouteSpecification that = (RouteSpecification) o;
-
-        return sameValueAs(that);
+    public boolean equals(Object other) {
+       return ObjectUtil.equals(RouteSpecification.class, this, other);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.origin)
-                .append(this.destination).append(this.arrivalDeadline)
-                .toHashCode();
+        return Objects.hash(this);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("RouteSpecification{");
+        sb.append("origin=").append(origin);
+        sb.append(", destination=").append(destination);
+        sb.append(", arrivalDeadline=").append(arrivalDeadline);
+        sb.append('}');
+        return sb.toString();
     }
 }

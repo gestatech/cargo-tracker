@@ -1,6 +1,10 @@
 package be.gestatech.cargo.tracker.backend.domain.model.vo.cargo;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.Leg;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.handling.HandlingEvent;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.CollectionUtil;
+import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 import org.eclipse.persistence.annotations.PrivateOwned;
 
 import javax.persistence.*;
@@ -9,6 +13,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Embeddable
 public class Itinerary implements Serializable {
@@ -22,21 +27,20 @@ public class Itinerary implements Serializable {
 
     // TODO Look into why cascade delete doesn't work.
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "cargo_id")
+    @JoinColumn(name = "CARGO_ID")
     // TODO Index this is in leg_index
-    @OrderBy("loadTime")
+    @OrderBy("LOAD_TIME")
     @PrivateOwned
     @Size(min = 1)
-    private List<Leg> legs = Collections.emptyList();
+    private List<Leg> legs = CollectionUtil.emptyList();
 
     public Itinerary() {
         // Nothing to initialize.
     }
 
     public Itinerary(List<Leg> legs) {
-        Validate.notEmpty(legs);
-        Validate.noNullElements(legs);
-
+        CollectionUtil.notEmpty(legs);
+        CollectionUtil.noNullElements(legs);
         this.legs = legs;
     }
 
@@ -44,61 +48,45 @@ public class Itinerary implements Serializable {
         return Collections.unmodifiableList(legs);
     }
 
-    /**
-     * Test if the given handling event is expected when executing this
-     * itinerary.
-     */
     public boolean isExpected(HandlingEvent event) {
+        boolean response = false;
         if (legs.isEmpty()) {
-            return true;
+            response = true;
         }
-
         // TODO Convert this to a switch statement?
         if (event.getType() == HandlingEvent.Type.RECEIVE) {
             // Check that the first leg's origin is the event's location
             Leg leg = legs.get(0);
-            return (leg.getLoadLocation().equals(event.getLocation()));
+            response = (leg.getLoadLocation().equals(event.getLocation()));
         }
-
         if (event.getType() == HandlingEvent.Type.LOAD) {
-            // Check that the there is one leg with same load location and
-            // voyage
+            // Check that the there is one leg with same load location and voyage
             for (Leg leg : legs) {
-                if (leg.getLoadLocation().sameIdentityAs(event.getLocation())
-                        && leg.getVoyage().sameIdentityAs(event.getVoyage())) {
-                    return true;
+                if (leg.getLoadLocation().sameIdentityAs(event.getLocation()) && leg.getVoyage().sameIdentityAs(event.getVoyage())) {
+                    response = true;
                 }
             }
-
-            return false;
+            response = false;
         }
-
         if (event.getType() == HandlingEvent.Type.UNLOAD) {
-            // Check that the there is one leg with same unload location and
-            // voyage
+            // Check that the there is one leg with same unload location and voyage
             for (Leg leg : legs) {
-                if (leg.getUnloadLocation().equals(event.getLocation())
-                        && leg.getVoyage().equals(event.getVoyage())) {
-                    return true;
+                if (leg.getUnloadLocation().equals(event.getLocation()) && leg.getVoyage().equals(event.getVoyage())) {
+                    response = true;
                 }
             }
-
-            return false;
+            response = false;
         }
-
         if (event.getType() == HandlingEvent.Type.CLAIM) {
-            // Check that the last leg's destination is from the event's
-            // location
+            // Check that the last leg's destination is from the event's location
             Leg leg = getLastLeg();
-
-            return (leg.getUnloadLocation().equals(event.getLocation()));
+            response = (leg.getUnloadLocation().equals(event.getLocation()));
         }
-
         // HandlingEvent.Type.CUSTOMS;
-        return true;
+        return response;
     }
 
-    Location getInitialDepartureLocation() {
+    public Location getInitialDepartureLocation() {
         if (legs.isEmpty()) {
             return Location.UNKNOWN;
         } else {
@@ -106,7 +94,7 @@ public class Itinerary implements Serializable {
         }
     }
 
-    Location getFinalArrivalLocation() {
+    public Location getFinalArrivalLocation() {
         if (legs.isEmpty()) {
             return Location.UNKNOWN;
         } else {
@@ -114,51 +102,31 @@ public class Itinerary implements Serializable {
         }
     }
 
-    /**
-     * @return Date when cargo arrives at final destination.
-     */
-    Date getFinalArrivalDate() {
+    public Date getFinalArrivalDate() {
         Leg lastLeg = getLastLeg();
-
-        if (lastLeg == null) {
-            return new Date(END_OF_DAYS.getTime());
-        } else {
-            return new Date(lastLeg.getUnloadTime().getTime());
+        Date date = new Date(lastLeg.getUnloadTime().getTime());
+        if (ObjectUtil.isNull(lastLeg)) {
+            date = new Date(END_OF_DAYS.getTime());
         }
+        return date;
     }
 
-    /**
-     * @return The last leg on the itinerary.
-     */
     Leg getLastLeg() {
-        if (legs.isEmpty()) {
-            return null;
-        } else {
-            return legs.get(legs.size() - 1);
+        Leg response = null;
+        if (!legs.isEmpty()) {
+            response = legs.get(legs.size() - 1);
         }
-    }
-
-    private boolean sameValueAs(Itinerary other) {
-        return other != null && legs.equals(other.legs);
+        return response;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Itinerary itinerary = (Itinerary) o;
-
-        return sameValueAs(itinerary);
+    public boolean equals(Object other) {
+        return ObjectUtil.equals(Itinerary.class, this, other);
     }
 
     @Override
     public int hashCode() {
-        return legs.hashCode();
+        return Objects.hash(this);
     }
 
     @Override
