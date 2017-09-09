@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.infrastructure;
+package be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.constant;
 
 public enum TransportStatus {
 

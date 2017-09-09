@@ -5,8 +5,8 @@ import be.gestatech.cargo.tracker.backend.domain.model.entity.handling.HandlingE
 import be.gestatech.cargo.tracker.backend.domain.model.vo.handling.HandlingHistory;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.location.Location;
 import be.gestatech.cargo.tracker.backend.domain.model.entity.voyage.Voyage;
-import be.gestatech.cargo.tracker.backend.infrastructure.TransportStatus;
-import be.gestatech.cargo.tracker.backend.infrastructure.constant.RoutingStatus;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.constant.TransportStatus;
+import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.constant.RoutingStatus;
 import be.gestatech.cargo.tracker.backend.infrastructure.util.ObjectUtil;
 
 import javax.persistence.*;
@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
-import static be.gestatech.cargo.tracker.backend.infrastructure.TransportStatus.*;
-import static be.gestatech.cargo.tracker.backend.infrastructure.constant.RoutingStatus.*;
+import static be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.constant.TransportStatus.*;
+import static be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.constant.RoutingStatus.*;
 
 @Embeddable
 public class Delivery implements Serializable {
