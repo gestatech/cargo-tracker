@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.domain.model.repository.cargo;
+package be.gestatech.cargo.tracker.backend.domain.model.repository.api.cargo;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.cargo.Cargo;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.TrackingId;
