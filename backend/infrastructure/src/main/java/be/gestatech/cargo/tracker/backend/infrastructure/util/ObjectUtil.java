@@ -26,11 +26,10 @@ public final class ObjectUtil {
         return Objects.equals(firstObject, secondObject);
     }
 
-    public static <T> boolean equals(Class<T> actualType, Object actualObject, Object otherObject) {
+    public static <T> boolean equals(Class<T> actualType, T actualObject, T otherObject) {
         boolean response = false;
         if (actualType.isInstance(otherObject)) {
-            T thatObject = (T) otherObject;
-            response = deepEquals(actualObject, thatObject);
+            response = deepEquals(actualObject, otherObject);
         }
         return response;
     }

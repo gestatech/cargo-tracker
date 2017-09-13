@@ -41,25 +41,27 @@ public final class ArrayUtil {
 
     // addAll
     //---------------------------------------------------------------------------------
-
+    @SuppressWarnings("unchecked")
     public static <T> T[] addAll(final T[] origine, final T... destination) {
+        T[] joinedArray = null;
         if (ObjectUtil.isNull(origine)) {
-            return clone(destination);
+            joinedArray = clone(destination);
         } else if (ObjectUtil.isNull(destination)) {
-            return clone(origine);
-        }
-        final Class<?> origineType = origine.getClass().getComponentType();
-        @SuppressWarnings("unchecked") // OK, because array is of type T
-        final T[] joinedArray = (T[]) Array.newInstance(origineType, origine.length + destination.length);
-        System.arraycopy(origine, 0, joinedArray, 0, origine.length);
-        try {
-            System.arraycopy(destination, 0, joinedArray, origine.length, destination.length);
-        } catch (final ArrayStoreException ase) {
-            final Class<?> destinationType = destination.getClass().getComponentType();
-            if (!origineType.isAssignableFrom(destinationType)) {
-                throw new IllegalArgumentException(String.format("Cannot store [%s] in an array of [%s]", origineType.getName(), destinationType.getName()), ase);
+            joinedArray = clone(origine);
+        } else {
+            final Class<?> origineType = origine.getClass().getComponentType();
+            // OK, because array is of type T
+            joinedArray = (T[]) Array.newInstance(origineType, origine.length + destination.length);
+            System.arraycopy(origine, 0, joinedArray, 0, origine.length);
+            try {
+                System.arraycopy(destination, 0, joinedArray, origine.length, destination.length);
+            } catch (final ArrayStoreException ase) {
+                final Class<?> destinationType = destination.getClass().getComponentType();
+                if (!origineType.isAssignableFrom(destinationType)) {
+                    throw new IllegalArgumentException(String.format("Cannot store [%s] in an array of [%s]", origineType.getName(), destinationType.getName()), ase);
+                }
+                throw ase;
             }
-            throw ase;
         }
         return joinedArray;
     }
