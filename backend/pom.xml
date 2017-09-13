@@ -43,6 +43,19 @@
                 <version>${version.eclipselink}</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet-core</artifactId>
+                <version>${version.jersey}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-moxy</artifactId>
+                <version>${version.jersey}</version>
+                <scope>provided</scope>
+            </dependency>
 
             <!-- Project Dependencies -->
             <dependency>
@@ -50,14 +63,42 @@
                 <artifactId>application</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
-                <type>pom</type>
+                <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
-                <artifactId>domain</artifactId>
+                <artifactId>application</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
-                <type>pom</type>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
@@ -68,6 +109,13 @@
             </dependency>
             <dependency>
                 <groupId>be.gestatech</groupId>
+                <artifactId>infrastructure</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>be.gestatech</groupId>
                 <artifactId>interface</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
@@ -75,6 +123,12 @@
             </dependency>
 
             <!-- External Dependencies -->
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${version.primefaces}</version>
+                <scope>compile</scope>
+            </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
