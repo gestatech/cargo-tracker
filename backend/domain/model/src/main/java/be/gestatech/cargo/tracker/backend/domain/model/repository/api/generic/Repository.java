@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.domain.model.repository.generic;
+package be.gestatech.cargo.tracker.backend.domain.model.repository.api.generic;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.generic.Identity;
 

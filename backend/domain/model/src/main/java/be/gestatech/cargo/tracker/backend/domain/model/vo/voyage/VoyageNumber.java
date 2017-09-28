@@ -21,7 +21,7 @@ public class VoyageNumber implements Serializable {
         // Nothing to initialize.
     }
 
-    public String getIdString() {
+    public String getId() {
         return number;
     }
 

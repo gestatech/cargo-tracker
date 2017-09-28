@@ -8,9 +8,9 @@ import be.gestatech.cargo.tracker.backend.domain.model.exception.CannotCreateHan
 import be.gestatech.cargo.tracker.backend.domain.model.exception.UnknownCargoException;
 import be.gestatech.cargo.tracker.backend.domain.model.exception.UnknownLocationException;
 import be.gestatech.cargo.tracker.backend.domain.model.exception.UnknownVoyageException;
-import be.gestatech.cargo.tracker.backend.domain.model.repository.cargo.CargoRepository;
-import be.gestatech.cargo.tracker.backend.domain.model.repository.location.LocationRepository;
-import be.gestatech.cargo.tracker.backend.domain.model.repository.voyage.VoyageRepository;
+import be.gestatech.cargo.tracker.backend.domain.model.repository.api.cargo.CargoRepository;
+import be.gestatech.cargo.tracker.backend.domain.model.repository.api.location.LocationRepository;
+import be.gestatech.cargo.tracker.backend.domain.model.repository.api.voyage.VoyageRepository;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.cargo.TrackingId;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.location.UnLocode;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.voyage.VoyageNumber;

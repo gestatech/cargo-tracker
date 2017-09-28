@@ -14,6 +14,6 @@ public class UnknownLocationException extends CannotCreateHandlingEventException
 
     @Override
     public String getMessage() {
-        return String.format("No location with UN locode [%s] exists in the system", unlocode.getIdString());
+        return String.format("No location with UN locode [%s] exists in the system", unlocode.getId());
     }
 }

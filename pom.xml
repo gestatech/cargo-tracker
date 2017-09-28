@@ -39,6 +39,7 @@
         <!-- Java SE/EE -->
         <java.version>1.8</java.version>
         <version.java.ee.api>7.0</version.java.ee.api>
+        <version.jersey>2.21</version.jersey>
         <version.eclipselink>2.6.1</version.eclipselink>
         <version.javax.persistence>2.2.0</version.javax.persistence>
         <version.java.ejb>3.2</version.java.ejb>
@@ -55,6 +56,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <version.maven>3.3.9</version.maven>
         <version.compiler.plugin>3.6.2</version.compiler.plugin>
+        <version.enforcer.plugin>1.4.1</version.enforcer.plugin>
         <version.ear.plugin>2.10.1</version.ear.plugin>
         <version.ejb.plugin>3.0.0</version.ejb.plugin>
         <version.war.plugin>3.1.0</version.war.plugin>
@@ -69,6 +71,7 @@
         <!-- Glassfish settings -->
         <glassfish.password.file>config/asadmin-truststore.txt</glassfish.password.file>
         <!-- Other dependencies -->
+        <version.primefaces>6.1</version.primefaces>
         <version.junit>4.12</version.junit>
         <version.mockito.all>1.9.5</version.mockito.all>
     </properties>
@@ -85,6 +88,7 @@
                     <configuration>
                         <verbose>true</verbose>
                         <fork>true</fork>
+                        <debug>true</debug>
                         <optimize>true</optimize>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
@@ -100,6 +104,26 @@
                             <endorseddirs>${endorsed.dir}</endorseddirs>
                         </compilerArguments>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${version.enforcer.plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-maven</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <version>${java.version}</version>
+                                    </requireJavaVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

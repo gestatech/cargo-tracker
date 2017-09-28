@@ -1,4 +1,4 @@
-package be.gestatech.cargo.tracker.backend.domain.model.repository.voyage;
+package be.gestatech.cargo.tracker.backend.domain.model.repository.api.voyage;
 
 import be.gestatech.cargo.tracker.backend.domain.model.entity.voyage.Voyage;
 import be.gestatech.cargo.tracker.backend.domain.model.vo.voyage.VoyageNumber;

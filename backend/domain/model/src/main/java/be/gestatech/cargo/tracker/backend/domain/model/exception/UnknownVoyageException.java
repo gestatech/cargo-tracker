@@ -14,6 +14,6 @@ public class UnknownVoyageException extends CannotCreateHandlingEventException {
 
     @Override
     public String getMessage() {
-        return String.format("No voyage with number [%s] exists in the system", voyageNumber.getIdString());
+        return String.format("No voyage with number [%s] exists in the system", voyageNumber.getId());
     }
 }

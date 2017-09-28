@@ -30,7 +30,7 @@ public class UnLocode implements Serializable {
         this.unlocode = countryAndLocation.toUpperCase();
     }
 
-    public String getIdString() {
+    public String getId() {
         return unlocode;
     }
 
