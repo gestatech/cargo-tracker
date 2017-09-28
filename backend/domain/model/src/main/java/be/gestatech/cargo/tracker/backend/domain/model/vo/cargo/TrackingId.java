@@ -45,8 +45,4 @@ public class TrackingId implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-
-    public boolean sameValueAs(TrackingId trackingId) {
-        return ObjectUtil.deepEquals(getId(), trackingId.getId());
-    }
 }
